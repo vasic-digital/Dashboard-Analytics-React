@@ -41,4 +41,23 @@ describe('ActivityFeed', () => {
     const timestamps = screen.getAllByTestId('feed-timestamp')
     expect(timestamps[0]).toHaveTextContent('2024-01-01T10:00:00Z')
   })
+
+  it('displays each timestamp next to its message', () => {
+    render(<ActivityFeed items={items} />)
+    const timestamps = screen.getAllByTestId('feed-timestamp')
+    expect(timestamps).toHaveLength(3)
+    expect(timestamps[0]).toHaveTextContent('2024-01-01T10:00:00Z')
+    expect(timestamps[1]).toHaveTextContent('2024-01-01T10:01:00Z')
+    expect(timestamps[2]).toHaveTextContent('2024-01-01T10:02:00Z')
+  })
+
+  it('does not show title when not provided', () => {
+    render(<ActivityFeed items={items} />)
+    expect(screen.queryByTestId('feed-title')).toBeNull()
+  })
+
+  it('renders feed container', () => {
+    render(<ActivityFeed items={items} />)
+    expect(screen.getByTestId('activity-feed')).toBeTruthy()
+  })
 })
