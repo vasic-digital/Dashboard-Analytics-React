@@ -1,5 +1,8 @@
 import React from 'react'
 
+/**
+ * Represents a single activity event shown in the feed.
+ */
 export interface ActivityItem {
   id: string | number
   message: string
@@ -7,12 +10,24 @@ export interface ActivityItem {
   type?: 'info' | 'success' | 'warning' | 'error'
 }
 
+/**
+ * Props for the ActivityFeed component.
+ */
 export interface ActivityFeedProps {
+  /** Activity events to display. */
   items: ActivityItem[]
+  /** Maximum number of items to show (default: 10). */
   maxItems?: number
+  /** Optional heading rendered above the feed. */
   title?: string
 }
 
+/**
+ * Renders a scrollable list of recent activity events with timestamps.
+ * Truncates to maxItems and displays an empty state when no items exist.
+ *
+ * @param props - ActivityFeedProps
+ */
 export const ActivityFeed: React.FC<ActivityFeedProps> = ({ items, maxItems = 10, title }) => {
   const displayed = items.slice(0, maxItems)
 

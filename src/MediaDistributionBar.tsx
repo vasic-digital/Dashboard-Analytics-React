@@ -1,10 +1,21 @@
 import React from 'react'
 
+/**
+ * Props for the MediaDistributionBar component.
+ */
 export interface MediaDistributionBarProps {
+  /** Mapping of category names to their counts. */
   data: Record<string, number>
+  /** Optional heading rendered above the bar chart. */
   title?: string
 }
 
+/**
+ * Horizontal stacked bar chart visualizing the proportional distribution
+ * of media categories. Includes a color-coded legend and handles empty state.
+ *
+ * @param props - MediaDistributionBarProps
+ */
 export const MediaDistributionBar: React.FC<MediaDistributionBarProps> = ({ data, title }) => {
   const total = Object.values(data).reduce((s, v) => s + v, 0)
   if (total === 0) return <div data-testid="distribution-empty">No data</div>

@@ -1,12 +1,25 @@
 import React from 'react'
 
+/**
+ * Props for the StatsCard component.
+ */
 export interface StatsCardProps {
+  /** Descriptive label for the metric. */
   label: string
+  /** Numeric or formatted string value to display. */
   value: number | string
+  /** Optional unit suffix (e.g., "GB", "%"). */
   unit?: string
+  /** Optional trend arrow indicator. */
   trend?: 'up' | 'down' | 'neutral'
 }
 
+/**
+ * Displays a single metric in a bordered card with label, large value,
+ * optional unit suffix, and an optional trend direction arrow.
+ *
+ * @param props - StatsCardProps
+ */
 export const StatsCard: React.FC<StatsCardProps> = ({ label, value, unit, trend }) => {
   const trendSymbol = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '—'
   return (

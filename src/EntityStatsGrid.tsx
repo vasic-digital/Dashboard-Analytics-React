@@ -2,7 +2,11 @@ import React from 'react'
 import type { EntityStats } from '@vasic-digital/media-types'
 import { StatsCard } from './StatsCard'
 
+/**
+ * Props for the EntityStatsGrid component.
+ */
 export interface EntityStatsGridProps {
+  /** Aggregate entity statistics from the API. */
   stats: EntityStats
 }
 
@@ -13,6 +17,12 @@ function formatSize(bytes: number): string {
   return `${bytes} B`
 }
 
+/**
+ * Responsive grid of StatsCards showing total entities, total files,
+ * formatted total size, recent additions, and duplicate group count.
+ *
+ * @param props - EntityStatsGridProps
+ */
 export const EntityStatsGrid: React.FC<EntityStatsGridProps> = ({ stats }) => {
   return (
     <div data-testid="entity-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '16px' }}>
