@@ -86,4 +86,63 @@ describe('EntityStatsGrid', () => {
     render(<EntityStatsGrid stats={stats} />)
     expect(screen.getByTestId('entity-stats-grid')).toBeTruthy()
   })
+
+  it('formats size in bytes for very small values', () => {
+    const byteStats: EntityStats = {
+      ...stats,
+      total_size: 500,
+    }
+    render(<EntityStatsGrid stats={byteStats} />)
+    const values = screen.getAllByTestId('stats-value')
+    const sizeCard = values.find(v => v.textContent?.includes('B'))
+    expect(sizeCard).toBeTruthy()
+    expect(sizeCard).toHaveTextContent('500 B')
+  })
+
+  it('formats size at exact TB boundary', () => {
+    const exactTB: EntityStats = {
+      ...stats,
+      total_size: 1e12,
+    }
+    render(<EntityStatsGrid stats={exactTB} />)
+    const values = screen.getAllByTestId('stats-value')
+    const sizeCard = values.find(v => v.textContent?.includes('TB'))
+    expect(sizeCard).toBeTruthy()
+    expect(sizeCard).toHaveTextContent('1.0 TB')
+  })
+
+  it('formats size at exact GB boundary', () => {
+    const exactGB: EntityStats = {
+      ...stats,
+      total_size: 1e9,
+    }
+    render(<EntityStatsGrid stats={exactGB} />)
+    const values = screen.getAllByTestId('stats-value')
+    const sizeCard = values.find(v => v.textContent?.includes('GB'))
+    expect(sizeCard).toBeTruthy()
+    expect(sizeCard).toHaveTextContent('1.0 GB')
+  })
+
+  it('formats size at exact MB boundary', () => {
+    const exactMB: EntityStats = {
+      ...stats,
+      total_size: 1e6,
+    }
+    render(<EntityStatsGrid stats={exactMB} />)
+    const values = screen.getAllByTestId('stats-value')
+    const sizeCard = values.find(v => v.textContent?.includes('MB'))
+    expect(sizeCard).toBeTruthy()
+    expect(sizeCard).toHaveTextContent('1.0 MB')
+  })
+
+  it('renders labels for all stat cards', () => {
+    render(<EntityStatsGrid stats={stats} />)
+    const labels = screen.getAllByTestId('stats-label')
+    const labelTexts = labels.map(l => l.textContent)
+    expect(labelTexts).toContain('Total Entities')
+    expect(labelTexts).toContain('Total Files')
+    expect(labelTexts).toContain('Total Size')
+    expect(labelTexts).toContain('Recent Additions')
+    expect(labelTexts).toContain('Duplicate Groups')
+  })
 })
