@@ -18,3 +18,5 @@ npm install @vasic-digital/dashboard-analytics @vasic-digital/media-types
 ## License
 
 MIT
+
+Dependency manifest: see `helix-deps.yaml` (§11.4.31 Submodule-Dependency-Manifest).
